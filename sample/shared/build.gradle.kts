@@ -28,6 +28,8 @@ kotlin {
                 implementation(compose.material)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
+                implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
+                implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
                 api(project(":lib"))
             }
         }

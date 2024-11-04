@@ -1,4 +1,4 @@
-rootProject.name = "compose-multiplatform-library-template"
+rootProject.name = "kmp-mvi-library"
 
 include(":sample:androidApp")
 include(":lib")

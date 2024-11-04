@@ -32,6 +32,7 @@ kotlin {
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material)
+                implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.7")
             }
         }
         val androidMain by getting {
@@ -56,7 +57,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.myapplication.common"
+    namespace = "io.github.devapro.kmp.mvi"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -74,18 +75,21 @@ android {
     }
 }
 
+dependencies {
+}
+
 mavenPublishing {
 //    publishToMavenCentral(SonatypeHost.DEFAULT)
     // or when publishing to https://s01.oss.sonatype.org
     publishToMavenCentral(SonatypeHost.S01, automaticRelease = true)
     signAllPublications()
-    coordinates("com.example.mylibrary", "mylibrary-runtime", "1.0.0")
+    coordinates("io.github.devapro.kmp.mvi", "kmp-mvi", "1.0.0")
 
     pom {
         name.set(project.name)
-        description.set("A description of what my library does.")
-        inceptionYear.set("2023")
-        url.set("https://github.com/username/mylibrary/")
+        description.set("Simple MVI.")
+        inceptionYear.set("2024")
+        url.set("https://github.com/devapro/KMP-MVI/")
         licenses {
             license {
                 name.set("The Apache License, Version 2.0")
@@ -95,15 +99,15 @@ mavenPublishing {
         }
         developers {
             developer {
-                id.set("username")
-                name.set("User Name")
-                url.set("https://github.com/username/")
+                id.set("devapro")
+                name.set("Arsenii Kharlanov")
+                url.set("https://github.com/devapro/")
             }
         }
         scm {
-            url.set("https://github.com/username/mylibrary/")
-            connection.set("scm:git:git://github.com/username/mylibrary.git")
-            developerConnection.set("scm:git:ssh://git@github.com/username/mylibrary.git")
+            url.set("https://github.com/devapro/KMP-MVI/")
+            connection.set("scm:git:git://github.com/devapro/KMP-MVI.git")
+            developerConnection.set("scm:git:ssh://git@github.com/devapro/KMP-MVI.git")
         }
     }
 }

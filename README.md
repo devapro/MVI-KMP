@@ -5,6 +5,21 @@ Only a few classes and interfaces are provided to help you implement the MVI pat
 
 Based on the [Compose Multiplatform Library Template](https://github.com/KevinnZou/compose-multiplatform-library-template)
 
+## Library Structure
+
+MviViewModel - base class for all ViewModels that should use MVI pattern. It contains:
+- `state` - holds the current state of the UI
+- `event` - channel of event that emits ViewModel for navigation or other actions
+- `onAction` - function that should be called when an action is received from the UI
+
+MviStore - base class for all Stores that should use MVI pattern. It contains all necessary logic to handle actions and update the state.
+
+Reducer - interface that should be implemented all reducers that handle actions.
+
+InitialStateFactory - interface that should be implemented according to the initial state for UI.
+
+MviLogger - interface that should be implemented for logging actions and states.
+
 ----------------------------------------------------
 
 [![official project](http://jb.gg/badges/official.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)

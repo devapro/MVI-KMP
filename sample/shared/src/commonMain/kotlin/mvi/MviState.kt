@@ -1,3 +1,5 @@
+package mvi
+
 sealed interface MviState {
     data object Loading : MviState
 

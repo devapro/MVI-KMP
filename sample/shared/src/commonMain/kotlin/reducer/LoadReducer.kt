@@ -1,10 +1,10 @@
 package reducer
 
-import MviAction
-import MviEvent
-import MviState
 import Reducer
 import kotlinx.coroutines.delay
+import mvi.MviAction
+import mvi.MviEvent
+import mvi.MviState
 
 class LoadReducer : Reducer<MviAction.Load, MviState, MviAction, MviEvent> {
     override val actionClass = MviAction.Load::class

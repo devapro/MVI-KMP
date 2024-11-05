@@ -1,6 +1,11 @@
+package mvi
+
+import MviLogger
+import MviStorage
+import Reducer
 import kotlinx.coroutines.Dispatchers
+import reducer.ClickOnToggleImageButtonReducer
 import reducer.LoadReducer
-import reducer.ShowImageReducer
 import reducer.ShowToastReducer
 
 class SampleMviStorage : MviStorage<MviState, MviAction, MviEvent>(
@@ -8,7 +13,7 @@ class SampleMviStorage : MviStorage<MviState, MviAction, MviEvent>(
         setOf(
             LoadReducer() as Reducer<MviAction, MviState, MviAction, MviEvent>,
             ShowToastReducer() as Reducer<MviAction, MviState, MviAction, MviEvent>,
-            ShowImageReducer() as Reducer<MviAction, MviState, MviAction, MviEvent>,
+            ClickOnToggleImageButtonReducer() as Reducer<MviAction, MviState, MviAction, MviEvent>,
         ),
     initStateFactory = SampleInitialStateFactory(),
     coroutineDispatcher = Dispatchers.Default,

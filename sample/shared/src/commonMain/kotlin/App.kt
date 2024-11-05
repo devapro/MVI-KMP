@@ -9,11 +9,15 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import mvi.MviAction
+import mvi.MviEvent
+import mvi.MviState
+import mvi.SampleMviStorage
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 
@@ -29,15 +33,20 @@ fun App(
 ) {
     MaterialTheme {
         val state = viewModel.state.collectAsState()
+        val lifecycleOwner = LocalLifecycleOwner.current
 
         when (state.value) {
             is MviState.Loading -> {
                 CircularProgressIndicator()
             }
+
             is MviState.Loaded -> {
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
                     Button(onClick = {
-                        viewModel.onAction(MviAction.ShowImage)
+                        viewModel.onAction(MviAction.ClickOnToggleImageButton)
                     }) {
                         Text((state.value as MviState.Loaded).message)
                     }
@@ -49,6 +58,7 @@ fun App(
                     }
                 }
             }
+
             is MviState.Error -> {
                 Text("Error")
             }
@@ -57,7 +67,16 @@ fun App(
         LaunchedEffect(Unit) {
             viewModel.onAction(MviAction.Load)
         }
+        LaunchedEffect(Unit) {
+            viewModel.event
+                .flowWithLifecycle(lifecycleOwner.lifecycle)
+                .collect {
+                    when (it) {
+                        is MviEvent.ShowToast -> {
+                            showToast(it.message)
+                        }
+                    }
+                }
+        }
     }
 }
-
-expect fun getPlatformName(): String
